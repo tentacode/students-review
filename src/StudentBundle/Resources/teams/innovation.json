@@ -1,0 +1,21 @@
+{
+    "id": 8,
+    "name": "Stations de Ski",
+    "students": [
+        {
+            "id": 19,
+            "firstname": "Aurélien",
+            "lastname": "SOL"
+        },
+        {
+            "id": 20,
+            "firstname": "Pablo",
+            "lastname": "SOÏME"
+        },
+        {
+            "id": 21,
+            "firstname": "Olivier",
+            "lastname": "TRAN"
+        }
+    ]
+}

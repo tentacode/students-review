@@ -1,0 +1,21 @@
+{
+    "id": 1,
+    "name": "Joueurs de Foot",
+    "students": [
+        {
+            "id": 1,
+            "firstname": "Dylan",
+            "lastname": "CLAUSS"
+        },
+        {
+            "id": 2,
+            "firstname": "Nicolas",
+            "lastname": "DESHAYES"
+        },
+        {
+            "id": 3,
+            "firstname": "Jérémie",
+            "lastname": "ESPAREL"
+        }
+    ]
+}

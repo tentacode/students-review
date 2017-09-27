@@ -1,0 +1,16 @@
+{
+    "id": 7,
+    "name": "Héros d'Overwatch",
+    "students": [
+        {
+            "id": 15,
+            "firstname": "Theophile",
+            "lastname": "CIBERT"
+        },
+        {
+            "id": 16,
+            "firstname": "Gautier",
+            "lastname": "NICOLLET"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": 6,
+    "name": "Stations de Ski",
+    "students": [
+        {
+            "id": 13,
+            "firstname": "Jeremie",
+            "lastname": "VANCUTSEM"
+        },
+        {
+            "id": 14,
+            "firstname": "Baptiste",
+            "lastname": "DUMONT"
+        }
+    ]
+}

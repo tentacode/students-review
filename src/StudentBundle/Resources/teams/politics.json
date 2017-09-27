@@ -1,0 +1,21 @@
+{
+    "id": 5,
+    "name": "Rate my Politics",
+    "students": [
+        {
+            "id": 10,
+            "firstname": "Chloé",
+            "lastname": "DE AZEVEDO MENDES"
+        },
+        {
+            "id": 11,
+            "firstname": "Louis",
+            "lastname": "CHARAVNER"
+        },
+        {
+            "id": 12,
+            "firstname": "Matthieu",
+            "lastname": "CASOLI"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": 4,
+    "name": "Heroes & Villains",
+    "students": [
+        {
+            "id": 8,
+            "firstname": "Titouan",
+            "lastname": "GALVANI"
+        },
+        {
+            "id": 9,
+            "firstname": "Thomas",
+            "lastname": "LLOBEL"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": 3,
+    "name": "Feedbacks sur les Intervenants",
+    "students": [
+        {
+            "id": 6,
+            "firstname": "Jules",
+            "lastname": "LAURENT"
+        },
+        {
+            "id": 7,
+            "firstname": "Alexandra",
+            "lastname": "RAMADOUR"
+        }
+    ]
+}
