@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Teams List</title>
-    </head>
-    <body>
-        {% for team in teams %}
-            <h2>{{ team.name }}</h2>
-            {% if team.gitRepository %}
-                <p>
-                    <a href="{{ team.gitRepository }}">
-                        {{ team.gitRepository }}
-                    </a>
-                </p>
-            {% endif %}
-            <table>
-                {% for student in team.students %}
-                    <tr>
-                        <td>
-                            <img width="50px" src="{{ asset(student.image) }}" />
-                        </td>
-                        <td>
-                            <a href="{{ path('student_detail', {studentId: student.id}) }}">
-                                {{ student.firstname }} {{ student.lastname }}
-                            </a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td>Aucun étudiants. 😦</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endfor %}
-    </body>
-</html>
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}Liste des équpes{% endblock %}
+
+{% block content %}
+    {% for team in teams %}
+        <h2>{{ team.name }}</h2>
+        {% if team.gitRepository %}
+            <p>
+                <a href="{{ team.gitRepository }}">
+                    {{ team.gitRepository }}
+                </a>
+            </p>
+        {% endif %}
+        <table>
+            {% for student in team.students %}
+                <tr>
+                    <td>
+                        <img width="50px" src="{{ asset(student.image) }}" />
+                    </td>
+                    <td>
+                        <a href="{{ path('student_detail', {studentId: student.id}) }}">
+                            {{ student.firstname }} {{ student.lastname }}
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>Aucun étudiants. 😦</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+{% endblock %}

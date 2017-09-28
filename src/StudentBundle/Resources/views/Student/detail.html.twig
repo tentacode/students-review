@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Student Detail</title>
-    </head>
-    <body>
-        <a href="{{ path('team_list') }}">Retour à la liste</a>
-        <h1>{{ student.firstname }} {{ student.lastname }}</h1>
-        
-        <img src="{{ asset(student.image) }}" />
-    </body>
-</html>
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}{{ student.firstname }} {{ student.lastname }}{% endblock %}
+
+{% block content %}
+    <img src="{{ asset(student.image) }}" />
+    
+    <a href="{{ path('team_list') }}">Retour à la liste</a>
+{% endblock %}
