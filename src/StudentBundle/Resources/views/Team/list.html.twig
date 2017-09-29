@@ -1,19 +1,19 @@
 {% extends 'bootstrap/layout.html.twig' %}
 
-{% block title %}Liste des équpes{% endblock %}
+{% block title %}Liste des équipes{% endblock %}
 
 {% block content %}
     {% for team in teams %}
         <h2>{{ team.name }}</h2>
-        {% if team.gitRepository %}
+        {% if team.githubRepository %}
             <p>
-                <a href="{{ team.gitRepository }}">
-                    {{ team.gitRepository }}
+                <a href="{{ team.githubRepository }}">
+                    {{ team.githubRepository }}
                 </a>
             </p>
         {% endif %}
         <table>
-            {% for student in team.students %}
+            {% for student in students if student.id in team.studentIds %}
                 <tr>
                     <td>
                         <img width="50px" src="{{ asset(student.image) }}" />

@@ -124,5 +124,16 @@ class Student
     {
         return $this->birthdate;
     }
+    
+    public function getImage()
+    {
+        $lastname = strtoupper($this->lastname);
+        $lastname = str_replace(' ', '_', $lastname);
+        
+        return sprintf(
+            'bundles/student/img/%s_%s.jpg',
+            $lastname,
+            $this->firstname
+        );
+    }
 }
-
