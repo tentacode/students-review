@@ -1,15 +1,12 @@
 {
-    "id": 8,
     "name": "Stations de Ski",
-    "gitRepository": "https://github.com/robinpichon/station-ski",
+    "githubRepository": "https://github.com/robinpichon/station-ski",
     "students": [
         {
-            "id": 17,
             "firstname": "Adrien",
             "lastname": "CABAUD"
         },
         {
-            "id": 18,
             "firstname": "Robin",
             "lastname": "PICHON"
         }

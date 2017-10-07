@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
 use StudentBundle\Entity\Student;
 use StudentBundle\Entity\Team;
 
@@ -22,29 +23,43 @@ class StudentFixturesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {    
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $finder = new Finder;
+        $finder->files()->in(sprintf('%s/../Resources/teams', __DIR__));
+        
+        foreach ($finder as $file) {
+            $filePath = $file->getRealPath();
+            $team = json_decode(file_get_contents($filePath), true);
+            
+            $output->write(sprintf('Import de la team %s… ', $team['name']));
+            $this->importTeam($team);
+            
+            $output->writeln('<info>OK !</info>');
+        }
+    }
     
-        $student = new Student();
-        $student->setFirstname("Gabriel");
-        $student->setLastname("Pillet");
+    private function importTeam(array $teamData)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         
-        // met dans une file d'attente
-        $em->persist($student);
-        
-        // insère les objets persistés dans la base de donnée
-        $em->flush();
-        
-        // à partir d'ici $student->getId() me renvoit le bon $id qui vient d'être sauvegardé
+        $studentIds = [];
+        foreach ($teamData['students'] as $studentData) {
+            $student = new Student();
+            $student->setFirstname($studentData['firstname']);
+            $student->setLastname($studentData['lastname']);
+            
+            $em->persist($student);
+            $em->flush();
+            
+            $studentIds[] = $student->getId();
+        }
         
         $team = new Team();
-        $team->setName('Notation des projets des élèves');
-        $team->setGithubRepository('https://github.com/tentacode/students-review');
-        $team->setStudentIds([1]);
+        $team->setName($teamData['name']);
+        $team->setGithubRepository($teamData['githubRepository']);
+        $team->setStudentIds($studentIds);
         
         $em->persist($team);
         $em->flush();
-        
-        $output->writeln('<info>OK</info>');
     }
 
 }

@@ -1,14 +1,12 @@
 {
-    "id": 6,
-    "name": "Stations de Ski",
+    "name": "Pingouins",
+    "githubRepository": "https://github.com/BaptDu/pingouin",
     "students": [
         {
-            "id": 13,
             "firstname": "Jeremie",
             "lastname": "VANCUTSEM"
         },
         {
-            "id": 14,
             "firstname": "Baptiste",
             "lastname": "DUMONT"
         }

@@ -1,8 +1,11 @@
 start:
-	bin/console server:start 0.0.0.0:8000
+	bin/console server:start 0.0.0.0
 
 stop:
 	bin/console server:stop
+	
+install:
+	composer install
 
 fixtures:
 	bin/console doctrine:database:drop --force --if-exists

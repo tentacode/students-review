@@ -1,19 +1,16 @@
 {
-    "id": 8,
-    "name": "Stations de Ski",
+    "name": "Innovation",
+    "githubRepository": "https://github.com/PenOfPain/Innovation_Tech",
     "students": [
         {
-            "id": 19,
             "firstname": "Aurélien",
             "lastname": "SOL"
         },
         {
-            "id": 20,
             "firstname": "Pablo",
             "lastname": "SOÏME"
         },
         {
-            "id": 21,
             "firstname": "Olivier",
             "lastname": "TRAN"
         }

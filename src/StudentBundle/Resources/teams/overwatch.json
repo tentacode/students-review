@@ -1,14 +1,12 @@
 {
-    "id": 7,
     "name": "Héros d'Overwatch",
+    "githubRepository": "https://github.com/TheoCib/overwatch_heroes_project2",
     "students": [
         {
-            "id": 15,
             "firstname": "Theophile",
             "lastname": "CIBERT"
         },
         {
-            "id": 16,
             "firstname": "Gautier",
             "lastname": "NICOLLET"
         }

@@ -1,14 +1,12 @@
 {
-    "id": 2,
     "name": "Jeux de Stratégie",
+    "githubRepository": "https://github.com/BenjaminLHONNEN/jeux_strat",
     "students": [
         {
-            "id": 3,
             "firstname": "Emeric",
             "lastname": "LESAULT"
         },
         {
-            "id": 4,
             "firstname": "Benjamin",
             "lastname": "L'HONNEN"
         }

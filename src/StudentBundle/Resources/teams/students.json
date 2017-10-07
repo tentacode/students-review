@@ -1,0 +1,10 @@
+{
+    "name": "Projets étudiants",
+    "githubRepository": "https://github.com/tentacode/students-review",
+    "students": [
+        {
+            "firstname": "Gabriel",
+            "lastname": "PILLET"
+        }
+    ]
+}

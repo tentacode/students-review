@@ -1,14 +1,12 @@
 {
-    "id": 3,
     "name": "Feedbacks sur les Intervenants",
+    "githubRepository": "https://github.com/JulesAaelio/feedMyTeacherBack",
     "students": [
         {
-            "id": 6,
             "firstname": "Jules",
             "lastname": "LAURENT"
         },
         {
-            "id": 7,
             "firstname": "Alexandra",
             "lastname": "RAMADOUR"
         }

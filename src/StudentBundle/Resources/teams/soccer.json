@@ -1,19 +1,17 @@
 {
     "id": 1,
     "name": "Joueurs de Foot",
+    "githubRepository": "https://github.com/JeremEspa/Soccer",
     "students": [
         {
-            "id": 1,
             "firstname": "Dylan",
             "lastname": "CLAUSS"
         },
         {
-            "id": 2,
             "firstname": "Nicolas",
             "lastname": "DESHAYES"
         },
         {
-            "id": 3,
             "firstname": "Jérémie",
             "lastname": "ESPAREL"
         }
