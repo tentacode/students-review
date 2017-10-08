@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ team.name }}</h4>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for student in students if student.id in team.studentIds %}
+            <li class="list-group-item">
+                <img class="rounded-avatar" src="{{ asset(student.image) }}" />
+                <a href="{{ path('student_detail', {studentId: student.id}) }}">
+                    {{ student.firstname }} {{ student.lastname }}
+                </a>
+            </li>
+        {% else %}
+            <li class="list-group-item">Aucun étudiants. 😦</li>
+        {% endfor %}
+    </ul>
+    <div class="card-body">
+        <a href="{{ path('team_detail', {teamId: team.id}) }}" class="card-link"><i class="fa fa-info-circle"></i> détail du projet</a>
+    </div>
+</div>

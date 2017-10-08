@@ -1,0 +1,28 @@
+{% set route_name = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="{{ path('team_list') }}">
+        <i class="fa fa-graduation-cap"></i> Projets Étudiants
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% if route_name == 'team_list' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('team_list') }}"><i class="fa fa-users"></i> Liste des projets</a>
+            </li>
+            <li class="nav-item {% if route_name == 'random_team' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('random_team') }}"><i class="fa fa-random"></i> Équipe aléatoire</a>
+            </li>
+            <li class="nav-item {% if route_name == 'student_list' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('student_list') }}"><i class="fa fa-address-book-o"></i> Liste des étudiants</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-key"></i> Se connecter</a>
+            </li>
+        </ul>
+    </div>
+</nav>
