@@ -3,7 +3,22 @@
 {% block title %}{{ student.firstname }} {{ student.lastname }}{% endblock %}
 
 {% block content %}
-    <img src="{{ asset(student.image) }}" />
+    <div class="jumbotron">
+        <h1><i class="fa fa-user"></i> Détail de l'étudiant</h1>
+    </div>
     
-    <a href="{{ path('team_list') }}">Retour à la liste</a>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-thumbnail float-right" src="{{ asset(student.image) }}" />
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Id : {{ student.id }}</li>
+                    <li class="list-group-item">Prénom : {{ student.firstname }}</li>
+                    <li class="list-group-item">Nom : {{ student.lastname }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

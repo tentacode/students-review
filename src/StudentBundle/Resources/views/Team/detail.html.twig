@@ -1,0 +1,31 @@
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}Projet {{ team.name }}{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1><i class="fa fa-users"></i> Détail du projet</h1>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ team.name }}</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Id : {{ team.id }}</li>
+            {% for student in students if student.id in team.studentIds %}
+                <li class="list-group-item">
+                    <img class="rounded-avatar" src="{{ asset(student.image) }}" />
+                    <a href="{{ path('student_detail', {studentId: student.id}) }}">
+                        {{ student.firstname }} {{ student.lastname }}
+                    </a>
+                </li>
+            {% else %}
+                <li class="list-group-item">Aucun étudiants. 😦</li>
+            {% endfor %}
+        </ul>
+        <div class="card-body">
+            <a href="{{ team.githubRepository }}" class="card-link"><i class="fa fa-github"></i> voir sur github — {{ team.githubRepository }}</a>
+        </div>
+    </div>
+{% endblock %}

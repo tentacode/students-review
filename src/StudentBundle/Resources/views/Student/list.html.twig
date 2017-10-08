@@ -1,0 +1,21 @@
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}Liste des étudiants{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1><i class="fa fa-address-book-o"></i> Liste des étudiants</h1>
+    </div>
+    <ul class="list-group">
+        {% for student in students %}
+            <li class="list-group-item">
+                <img class="rounded-avatar" src="{{ asset(student.image) }}" />
+                <a href="{{ path('student_detail', {studentId: student.id}) }}">
+                    {{ student.lastname }} {{ student.firstname }}
+                </a>
+            </li>
+        {% else %}
+            <li class="list-group-item">Aucun étudiant. 😱</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

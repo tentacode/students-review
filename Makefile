@@ -6,6 +6,7 @@ stop:
 	
 install:
 	composer install
+	make fixtures
 
 fixtures:
 	bin/console doctrine:database:drop --force --if-exists
