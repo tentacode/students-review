@@ -29,6 +29,13 @@ class Team
     private $students;
 
     /**
+     * @var array
+     *
+     * @ORM\OneToMany(targetEntity="ReviewBundle\Entity\Review", mappedBy="team")
+     */
+    private $reviews;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -75,6 +82,30 @@ class Team
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Set reviews
+     *
+     * @param array $reviews
+     *
+     * @return Team
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return array
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 
     /**
