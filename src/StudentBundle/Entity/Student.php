@@ -42,6 +42,13 @@ class Student
      */
     private $birthdate;
 
+    /**
+     * @var Team
+     *
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="students")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     */
+    private $team;
 
     /**
      * Get id
@@ -123,6 +130,30 @@ class Student
     public function getBirthdate()
     {
         return $this->birthdate;
+    }
+
+    /**
+     * Set team
+     *
+     * @param Team $team
+     *
+     * @return Student
+     */
+    public function setTeam($team)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return Team
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
     
     public function getImage()

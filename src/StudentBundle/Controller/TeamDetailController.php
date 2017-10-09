@@ -18,12 +18,8 @@ class TeamDetailController extends Controller
         $teamRepository = $this->getDoctrine()->getRepository(Team::class);
         $team = $teamRepository->find($teamId);
         
-        $studentRepository = $this->getDoctrine()->getRepository(Student::class);
-        $students = $studentRepository->findAll();
-        
         return $this->render('StudentBundle:Team:detail.html.twig', [
             'team' => $team,
-            'students' => $students,
         ]);
     }
 }

@@ -41,22 +41,21 @@ class StudentFixturesCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         
-        $studentIds = [];
+        $team = new Team();
+        $team->setName($teamData['name']);
+        $team->setGithubRepository($teamData['githubRepository']);
+        
+        $students = [];
         foreach ($teamData['students'] as $studentData) {
             $student = new Student();
             $student->setFirstname($studentData['firstname']);
             $student->setLastname($studentData['lastname']);
+            $student->setTeam($team);
             
             $em->persist($student);
-            $em->flush();
             
-            $studentIds[] = $student->getId();
+            $students[] = $student;
         }
-        
-        $team = new Team();
-        $team->setName($teamData['name']);
-        $team->setGithubRepository($teamData['githubRepository']);
-        $team->setStudentIds($studentIds);
         
         $em->persist($team);
         $em->flush();

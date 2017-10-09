@@ -17,7 +17,6 @@ class StudentDetailController extends Controller
         // $studentRepository = new StudentRepository();
         $studentRepository = $this->getDoctrine()->getRepository(Student::class);
         $student = $studentRepository->find($studentId);
-        // var_du
         
         return $this->render('StudentBundle:Student:detail.html.twig', [
             'student' => $student,

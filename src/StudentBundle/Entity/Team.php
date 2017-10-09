@@ -24,9 +24,9 @@ class Team
     /**
      * @var array
      *
-     * @ORM\Column(name="studentIds", type="simple_array")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="team")
      */
-    private $studentIds;
+    private $students;
 
     /**
      * @var string
@@ -56,25 +56,25 @@ class Team
     /**
      * Set studentIds
      *
-     * @param array $studentIds
+     * @param array $students
      *
      * @return Team
      */
-    public function setStudentIds($studentIds)
+    public function setStudents($students)
     {
-        $this->studentIds = $studentIds;
+        $this->students = $students;
 
         return $this;
     }
 
     /**
-     * Get studentIds
+     * Get students
      *
      * @return array
      */
-    public function getStudentIds()
+    public function getStudents()
     {
-        return $this->studentIds;
+        return $this->students;
     }
 
     /**
@@ -125,4 +125,3 @@ class Team
         return $this->githubRepository;
     }
 }
-

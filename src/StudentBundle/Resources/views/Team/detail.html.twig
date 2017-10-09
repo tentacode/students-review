@@ -13,7 +13,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Id : {{ team.id }}</li>
-            {% for student in students if student.id in team.studentIds %}
+            {% for student in team.students %}
                 <li class="list-group-item">
                     <img class="rounded-avatar" src="{{ asset(student.image) }}" />
                     <a href="{{ path('student_detail', {studentId: student.id}) }}">
