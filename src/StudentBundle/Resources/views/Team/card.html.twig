@@ -1,6 +1,15 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">{{ team.name }}</h4>
+        <h4 class="card-title">
+            {{ team.name }}
+            <span title="{{ team.averageRating }} / 5" class="stars float-right">
+                <i class="fa fa-star{% if team.averageRating < 1 %}-o{% endif %}"></i>
+                <i class="fa fa-star{% if team.averageRating < 2 %}-o{% endif %}"></i>
+                <i class="fa fa-star{% if team.averageRating < 3 %}-o{% endif %}"></i>
+                <i class="fa fa-star{% if team.averageRating < 4 %}-o{% endif %}"></i>
+                <i class="fa fa-star{% if team.averageRating < 5 %}-o{% endif %}"></i>
+            </span>
+        </h4>
     </div>
     <ul class="list-group list-group-flush">
         {% for student in team.students %}

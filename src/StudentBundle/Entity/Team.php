@@ -155,4 +155,18 @@ class Team
     {
         return $this->githubRepository;
     }
+    
+    public function getAverageRating(): int
+    {
+        $ratings = [];
+        foreach ($this->getReviews() as $review) {
+            $ratings[] = $review->getRating();
+        }
+        
+        if (count($ratings) === 0) {
+            return 0;
+        }
+        
+        return round(array_sum($ratings) / count($ratings));
+    }
 }
