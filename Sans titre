@@ -1,0 +1,27 @@
+<?php
+
+class Category
+{
+    private $id;
+    private $name;
+}
+
+class Product
+{
+    private $id;
+    private $category;
+}
+
+$category = new Category();
+$em->persist($category);
+
+$product = new Product();
+$product->setCategory($category);
+$em->persist($product);
+$em->flush();
+
+
+
+$product = $productRepository->find(123);
+// category.name
+$product->getCategory()->getName();

@@ -10,10 +10,12 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'bootstrap/navigation.html.twig' %}
+        {% block body %}
+            {% include 'bootstrap/navigation.html.twig' %}
 
-        <div class="container">
-            {% block content '' %}
-        </div>
+            <div class="container">
+                {% block content '' %}
+            </div>
+        {% endblock %}
     </body>
 </html>

@@ -18,10 +18,21 @@
             <li class="nav-item {% if route_name == 'student_list' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('student_list') }}"><i class="fa fa-address-book-o"></i> Liste des étudiants</a>
             </li>
+            
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin') }}"><i class="fa fa-cogs"></i> Admin</a>
+                </li>
+            {% endif %}
         </ul>
+        
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-key"></i> Se connecter</a>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="nav-link" href="{{ path('login') }}"><i class="fa fa-key"></i> Se connecter</a>
+                {% else  %}
+                    <a class="nav-link" href="{{ path('logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter ({{ app.user.username }})</a>
+                {% endif %}
             </li>
         </ul>
     </div>

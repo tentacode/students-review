@@ -1,0 +1,30 @@
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="container">    
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    
+
+    <form class="form-signin" action="{{ path('login') }}" method="post">
+        <h2 class="form-signin-heading">Connexion</h2>
+        
+        <label for="inputEmail" class="sr-only">Login</label>
+        <input 
+            type="text"
+            name="_username"
+            class="form-control"
+            placeholder="Login"
+            required autofocus value="{{ last_username }}"
+        >
+        
+        <label for="inputPassword" class="sr-only">Mot de passe</label>
+        <input type="password" name="_password" class="form-control" placeholder="Mot de passe" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+    </form>
+</div>
+{% endblock %}
