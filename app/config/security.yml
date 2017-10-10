@@ -4,17 +4,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: 
-                users:
-                    user:
-                        password: user
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: $2y$12$SvFzdNu5qnEtlNAJ8UyxLe6bIY9UUcSUczv28fsCmGJ5tq2qWQ96y
-                        roles: 'ROLE_ADMIN'
+        user_provider:
+            entity:
+                class: UserBundle:User
+                property: email
+        
     encoders:
-        Symfony\Component\Security\Core\User\User: 
+        UserBundle\Entity\User: 
             algorithm: bcrypt
             cost: 12
 

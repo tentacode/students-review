@@ -68,17 +68,18 @@ class StudentFixturesCommand extends ContainerAwareCommand
     
     private function importUsers($output)
     {
+        $passwordEncoder = $this->getContainer()->get('security.password_encoder');
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $user = new User();
         $user->setEmail('contact@gabrielpillet.com');
-        $user->setPassword('gabriel');
+        $user->setPassword($passwordEncoder->encodePassword($user, 'gabriel'));
         $user->setRoles(['ROLE_ADMIN']);
         $em->persist($user);
 
         $user = new User();
         $user->setEmail('charles.terrasse@gmail.com');
-        $user->setPassword('charles');
+        $user->setPassword($passwordEncoder->encodePassword($user, 'charles'));
         $user->setRoles(['ROLE_USER']);
         $em->persist($user);
 
