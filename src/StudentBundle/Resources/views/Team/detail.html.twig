@@ -28,4 +28,26 @@
             <a href="{{ team.githubRepository }}" class="card-link"><i class="fa fa-github"></i> voir sur github — {{ team.githubRepository }}</a>
         </div>
     </div>
+    
+    <hr>
+    <h2>Liste des avis</h2>
+    {% for review in team.reviews %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ review.user.email }} a noté {{ review.rating }} / 5</h4>
+            </div>
+            {% if review.comment %}
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{ review.comment }}</p>
+                    </blockquote>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    <hr>
+    <h2>Ajouter une note</h2>
+    
+    {{ form(review_form) }}
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace ReviewBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Review
@@ -25,6 +27,13 @@ class Review
      * @var int
      *
      * @ORM\Column(name="rating", type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      minMessage = "La note doit être comprise entre 1 et 5",
+     *      maxMessage = "La note doit être comprise entre 1 et 5"
+     * )
      */
     private $rating;
 
