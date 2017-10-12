@@ -47,7 +47,22 @@
     {% endfor %}
     
     <hr>
-    <h2>Ajouter une note</h2>
     
-    {{ form(review_form) }}
+    {% if review_form %}
+        <h2>Ajouter une note</h2>
+    
+        {% form_theme review_form 'bootstrap/form_theme.html.twig' %}
+        
+        {{ form(review_form) }}
+        
+        {# form_start(review_form) }}
+            <div>
+                <h3>Foobar</h3>
+                {{ form_label(review_form.rating) }}
+                {{ form_widget(review_form.rating) }}
+            </div>
+            {{ form_row(review_form.comment) }}
+            {{ form_row(review_form.save) }}
+        {{ form_end(review_form) #}
+    {% endif %}
 {% endblock %}

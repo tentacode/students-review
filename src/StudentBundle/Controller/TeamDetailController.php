@@ -9,6 +9,7 @@ use StudentBundle\Repository\TeamRepository;
 use StudentBundle\Entity\Team;
 use StudentBundle\Entity\Student;
 use ReviewBundle\Entity\Review;
+use ReviewBundle\Form\ReviewType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,7 +26,7 @@ class TeamDetailController extends Controller
         
         $user = $this->getUser();
         if ($user) {
-            $reviewForm = $this->getReviewForm();
+            $reviewForm = $this->createForm(ReviewType::class, new Review());
             
             $reviewForm->handleRequest($request);
 
@@ -49,22 +50,5 @@ class TeamDetailController extends Controller
             'team' => $team,
             'review_form' => $user ? $reviewForm->createView() : null,
         ]);
-    }
-    
-    private function getReviewForm()
-    {
-        $review = new Review();
-
-        $form = $this->createFormBuilder($review)
-            ->add('rating', IntegerType::class, ['label' => "Note sur 5"])
-            ->add('comment', TextareaType::class, [
-                'label' => "Commentaire",
-                'required' => false,
-            ])
-            ->add('save', SubmitType::class, array('label' => "Noter l'équipe"))
-            ->getForm()
-        ;
-        
-        return $form;
     }
 }

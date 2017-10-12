@@ -18,9 +18,9 @@ class RandomTeamController extends Controller
         $teamRepository = $this->getDoctrine()->getRepository(Team::class);
         $teams = $teamRepository->findAll();
         $team = $teams[mt_rand(0, 133700) % count($teams)];
-        
-        return $this->render('StudentBundle:Team:detail.html.twig', [
-            'team' => $team,
+
+        return $this->redirectToRoute('team_detail', [
+            'teamId' => $team->getId(),
         ]);
     }
 }
