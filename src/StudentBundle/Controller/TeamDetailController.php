@@ -40,9 +40,7 @@ class TeamDetailController extends Controller
                 $em->persist($review);
                 $em->flush();
 
-                return $this->redirectToRoute('team_detail', [
-                    'teamId' => $teamId,
-                ]);
+                return $this->redirectToRoute('team_list');
             }
         }
         

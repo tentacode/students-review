@@ -99,7 +99,7 @@ class StudentFixturesCommand extends ContainerAwareCommand
                 $review = new Review();
                 $review->setUser($user);
                 $review->setTeam($team);
-                $review->setRating(mt_rand(0, 5));
+                $review->setRating(mt_rand(1, 5));
                 $review->setComment('Foobar');
                 
                 $em->persist($review);

@@ -1,0 +1,12 @@
+{% extends 'bootstrap/layout.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1><i class="fa fa-user"></i> Inscription</h1>
+    </div>
+    
+    {% form_theme register_form 'bootstrap/form_theme.html.twig' %}
+    {{ form(register_form) }}
+{% endblock %}
