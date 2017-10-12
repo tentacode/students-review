@@ -42,11 +42,30 @@ class RegisterController extends Controller
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
             
+            $this->sendWelcomeEmail($user);
+            
             return $this->redirectToRoute('team_list');
         }
         
         return $this->render('UserBundle:Register:register.html.twig',  [
             'register_form' => $registerForm->createView(),
         ]);
+    }
+    
+    private function sendWelcomeEmail($user)
+    {
+        $message = (new \Swift_Message('Bienvenue sur Students Rating'))
+            ->setFrom('contact@gabrielpillet.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView('UserBundle:Email:welcome.html.twig',
+                    array('user' => $user)
+                ),
+                'text/html'
+            )
+        ;
+        
+        $mailer = $this->container->get('mailer');
+        $mailer->send($message);
     }
 }
