@@ -27,6 +27,12 @@
         <div class="card-body">
             <a href="{{ team.githubRepository }}" class="card-link"><i class="fa fa-github"></i> voir sur github — {{ team.githubRepository }}</a>
         </div>
+        
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Nombre de commits : {{ github_stats.commits }}</li>
+            <li class="list-group-item">Nombre de lignes ajoutées : {{ github_stats.additions }}</li>
+            <li class="list-group-item">Nombre de lignes supprimées : {{ github_stats.deletions }}</li>
+        </ul>
     </div>
     
     <hr>

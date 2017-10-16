@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use StudentBundle\Repository\TeamRepository;
 use StudentBundle\Entity\Team;
 use StudentBundle\Entity\Student;
+use StudentBundle\Statistics\GithubService;
 use ReviewBundle\Entity\Review;
 use ReviewBundle\Form\ReviewType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -44,9 +45,12 @@ class TeamDetailController extends Controller
             }
         }
         
+        $githubService = $this->container->get('student.statistics.github');
+        
         return $this->render('StudentBundle:Team:detail.html.twig', [
             'team' => $team,
             'review_form' => $user ? $reviewForm->createView() : null,
+            'github_stats' => $githubService->getStats($teamId),
         ]);
     }
 }
