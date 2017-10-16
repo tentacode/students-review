@@ -17,3 +17,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+    
+    # Il faut que 
+    github_client_id: ATTENTIONFAUTMETTRETONCLIENTID
+    github_client_secret: ATTENTIONFAUTMETTRETONCLIENTSECRET
