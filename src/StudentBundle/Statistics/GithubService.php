@@ -50,21 +50,6 @@ class GithubService
         
         $data = json_decode($json, true);
         
-        $stats = [
-            'commits' => 0,
-            'additions' => 0,
-            'deletions' => 0,
-        ];
-        
-        foreach ($data as $contributor) {
-            $stats['commits'] += $contributor['total'];
-            
-            foreach ($contributor['weeks'] as $week) {
-                $stats['additions'] += $week['a'];
-                $stats['deletions'] += $week['d'];
-            }
-        }
-        
-        return $stats;
+        return $data;
     }
 }

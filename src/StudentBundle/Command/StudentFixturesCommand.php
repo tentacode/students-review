@@ -72,12 +72,14 @@ class StudentFixturesCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $user = new User();
+        $user->setNickname('tentacode');
         $user->setEmail('contact@gabrielpillet.com');
         $user->setPassword($passwordEncoder->encodePassword($user, 'gabriel'));
         $user->setRoles(['ROLE_ADMIN']);
         $em->persist($user);
 
         $user = new User();
+        $user->setNickname('charles');
         $user->setEmail('charles.terrasse@gmail.com');
         $user->setPassword($passwordEncoder->encodePassword($user, 'charles'));
         $user->setRoles(['ROLE_USER']);

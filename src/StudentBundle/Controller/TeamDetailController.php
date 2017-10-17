@@ -40,8 +40,15 @@ class TeamDetailController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($review);
                 $em->flush();
+                
+                $this->addFlash(
+                    'notice',
+                    'Votre avis a bien été pris en compte. 👌'
+                );
 
-                return $this->redirectToRoute('team_list');
+                return $this->redirectToRoute('team_detail', [
+                    'teamId' => $teamId,
+                ]);
             }
         }
         

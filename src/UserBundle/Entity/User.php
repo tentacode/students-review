@@ -26,6 +26,14 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank
+     * @ORM\Column(name="nickname", type="string", length=255, unique=true)
+     */
+    private $nickname;
+
+    /**
+     * @var string
+     *
      * @Assert\Email
      * @Assert\NotBlank
      * @ORM\Column(name="email", type="string", length=255, unique=true)
@@ -88,6 +96,30 @@ class User implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     *
+     * @return User
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
     }
     
    public function getUsername()
@@ -175,5 +207,10 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         return null;
+    }
+    
+    public function __toString()
+    {
+        return $this->nickname;
     }
 }

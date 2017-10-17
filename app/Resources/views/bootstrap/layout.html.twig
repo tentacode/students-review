@@ -14,8 +14,17 @@
             {% include 'bootstrap/navigation.html.twig' %}
 
             <div class="container">
+                {% for message in app.flashes('notice') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                
                 {% block content '' %}
             </div>
         {% endblock %}
+        
+        
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

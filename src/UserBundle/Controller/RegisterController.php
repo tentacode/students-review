@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use UserBundle\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,8 +20,9 @@ class RegisterController extends Controller
     public function registerAction(Request $request)
     {
         $registerForm = $this->createFormBuilder(new User())
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('nickname', TextType::class, ['label' => 'Votre pseudo'])
+            ->add('email', EmailType::class, ['label' => 'Votre e-mail'])
+            ->add('password', PasswordType::class, ['label' => 'Votre mot de passe'])
             ->add('save', SubmitType::class, array('label' => "Créer un compte"))
             ->getForm()
         ;
@@ -43,6 +45,11 @@ class RegisterController extends Controller
             $this->get('session')->set('_security_main', serialize($token));
             
             $this->sendWelcomeEmail($user);
+
+            $this->addFlash(
+                'notice',
+                'Bravo vous êtes inscrit ! 👏'
+            );
             
             return $this->redirectToRoute('team_list');
         }

@@ -1,5 +1,10 @@
 {% extends 'bootstrap/layout.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js">
+{% endblock %}
+
 {% block title %}Projet {{ team.name }}{% endblock %}
 
 {% block content %}
@@ -7,68 +12,177 @@
         <h1><i class="fa fa-users"></i> Détail du projet</h1>
     </div>
     
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">{{ team.name }}</h4>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Id : {{ team.id }}</li>
-            {% for student in team.students %}
-                <li class="list-group-item">
-                    <img class="rounded-avatar" src="{{ asset(student.image) }}" />
-                    <a href="{{ path('student_detail', {studentId: student.id}) }}">
-                        {{ student.firstname }} {{ student.lastname }}
-                    </a>
-                </li>
-            {% else %}
-                <li class="list-group-item">Aucun étudiants. 😦</li>
-            {% endfor %}
-        </ul>
-        <div class="card-body">
-            <a href="{{ team.githubRepository }}" class="card-link"><i class="fa fa-github"></i> voir sur github — {{ team.githubRepository }}</a>
-        </div>
-        
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Nombre de commits : {{ github_stats.commits }}</li>
-            <li class="list-group-item">Nombre de lignes ajoutées : {{ github_stats.additions }}</li>
-            <li class="list-group-item">Nombre de lignes supprimées : {{ github_stats.deletions }}</li>
-        </ul>
-    </div>
-    
-    <hr>
-    <h2>Liste des avis</h2>
-    {% for review in team.reviews %}
+    <div class="cards">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ review.user.email }} a noté {{ review.rating }} / 5</h4>
+                <h4 class="card-title">{{ team.name }}</h4>
+                {% include '@Student/Team/stars.html.twig' with {rating: team.averageRating} %}
             </div>
-            {% if review.comment %}
-                <div class="card-body">
-                    <blockquote class="blockquote">
-                      <p class="mb-0">{{ review.comment }}</p>
-                    </blockquote>
-                </div>
-            {% endif %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Id : {{ team.id }}</li>
+                {% for student in team.students %}
+                    <li class="list-group-item">
+                        <img class="rounded-avatar" src="{{ asset(student.image) }}" />
+                        <a href="{{ path('student_detail', {studentId: student.id}) }}">
+                            {{ student.firstname }} {{ student.lastname }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Aucun étudiants. 😦</li>
+                {% endfor %}
+            </ul>
+            <div class="card-body">
+                <a href="{{ team.githubRepository }}" class="card-link"><i class="fa fa-github"></i> voir sur github — {{ team.githubRepository }}</a>
+            </div>
         </div>
-    {% endfor %}
-    
-    <hr>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="fa fa-github"></i> Statistiques Github</h4>
+            </div>
+            
+            <ul class="list-group list-group-flush">
+            {% for contributor in github_stats %}
+                <li class="list-group-item">
+                    <img class="rounded-avatar" src="{{ contributor.author.avatar_url }}" />
+                    <a href="{{ contributor.author.html_url }}">
+                        <i class="fa fa-github"></i> {{ contributor.author.login }}
+                    </a> - <i class="fa fa-bar-chart"></i> {{ contributor.total }} commits
+                    
+                    <div>
+                        <canvas id="github-stats-{{ loop.index }}" width="400" height="100"></canvas>
+                        <script type="text/javascript">
+                            document.addEventListener("DOMContentLoaded", function() {
+                                var ctx = document.getElementById("github-stats-{{ loop.index }}").getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: [
+                                            {% for week in contributor.weeks %}
+                                                '{{ week.w|date('d/m/Y') }}',
+                                            {% endfor %}
+                                        ],
+                                        datasets: [{
+                                            label: 'Nombre de commits',
+                                            borderColor: '#157FFC',
+                                            backgroundColor: '#157FFC',
+                                            fill: false,
+                                            data: [
+                                                {% for week in contributor.weeks %}
+                                                    {{ week.c }},
+                                                {% endfor %}
+                                            ],
+                                            yAxisID: "y-axis-1"
+                                        },{
+                                            label: 'Ajouts',
+                                            borderColor: '#36D9D1',
+                                            backgroundColor: '#36D9D1',
+                                            fill: false,
+                                            data: [
+                                                {% for week in contributor.weeks %}
+                                                    {{ week.a }},
+                                                {% endfor %}
+                                            ],
+                                            yAxisID: "y-axis-2"
+                                        },{
+                                            label: 'Suppressions',
+                                            borderColor: '#F35355',
+                                            backgroundColor: '#F35355',
+                                            fill: false,
+                                            data: [
+                                                {% for week in contributor.weeks %}
+                                                    {{ week.d }},
+                                                {% endfor %}
+                                            ],
+                                            yAxisID: "y-axis-3"
+                                        }]
+                                    },
+                                    options: {
+                                        legend: {
+                                            position: 'bottom',
+                                            labels: {
+                                                boxWidth: 10,
+                                                usePointStyle: true
+                                            }
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                type: "linear",
+                                                display: true,
+                                                position: "left",
+                                                id: "y-axis-1",
+                                                ticks: {
+                                                    beginAtZero: true
+                                                },
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Nombre de commits'
+                                                }
+                                            },{
+                                                type: "linear",
+                                                display: true,
+                                                position: "right",
+                                                id: "y-axis-2",
+                                                ticks: {
+                                                    beginAtZero: true
+                                                },
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Nombre d\'ajouts'
+                                                }
+                                            },{
+                                                type: "linear",
+                                                display: true,
+                                                position: "right",
+                                                id: "y-axis-3",
+                                                ticks: {
+                                                    beginAtZero: true
+                                                },
+                                                scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'Nombre de suppressions'
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </li>
+            {% else %}
+                <li class="list-group-item">Statistiques github non disponibles 😭</li>
+            {% endfor %}
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste des avis</h4>
+            </div>
+            
+            <ul class="list-group list-group-flush">
+                {% for review in team.reviews %}
+                    <li class="list-group-item">
+                        {{ review.user }} a noté 
+                        
+                        {% include '@Student/Team/stars.html.twig' with {
+                            rating: review.rating
+                        } %}
+                        
+                        {% if review.comment %}
+                            avec le commentaire &ldquo;<mark>{{ review.comment }}</mark>&rdquo;
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
     
     {% if review_form %}
         <h2>Ajouter une note</h2>
     
         {% form_theme review_form 'bootstrap/form_theme.html.twig' %}
-        
         {{ form(review_form) }}
-        
-        {# form_start(review_form) }}
-            <div>
-                <h3>Foobar</h3>
-                {{ form_label(review_form.rating) }}
-                {{ form_widget(review_form.rating) }}
-            </div>
-            {{ form_row(review_form.comment) }}
-            {{ form_row(review_form.save) }}
-        {{ form_end(review_form) #}
     {% endif %}
 {% endblock %}
