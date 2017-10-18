@@ -2,7 +2,107 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js">
+    <script type="text/javascript" src="{{ asset('bundles/student/js/Chart.min.js') }}"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            {% for contributor in github_stats %}
+                var ctx = document.getElementById("github-stats-{{ loop.index }}").getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [
+                            {% for week in contributor.weeks %}
+                                '{{ week.w|date('d/m/Y') }}',
+                            {% endfor %}
+                        ],
+                        datasets: [{
+                            label: 'Nombre de commits',
+                            borderColor: '#157FFC',
+                            backgroundColor: '#157FFC',
+                            fill: false,
+                            data: [
+                                {% for week in contributor.weeks %}
+                                    {{ week.c }},
+                                {% endfor %}
+                            ],
+                            yAxisID: "y-axis-1"
+                        },{
+                            label: 'Ajouts',
+                            borderColor: '#36D9D1',
+                            backgroundColor: '#36D9D1',
+                            fill: false,
+                            data: [
+                                {% for week in contributor.weeks %}
+                                    {{ week.a }},
+                                {% endfor %}
+                            ],
+                            yAxisID: "y-axis-2"
+                        },{
+                            label: 'Suppressions',
+                            borderColor: '#F35355',
+                            backgroundColor: '#F35355',
+                            fill: false,
+                            data: [
+                                {% for week in contributor.weeks %}
+                                    {{ week.d }},
+                                {% endfor %}
+                            ],
+                            yAxisID: "y-axis-3"
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 10,
+                                usePointStyle: true
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                type: "linear",
+                                display: true,
+                                position: "left",
+                                id: "y-axis-1",
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Nombre de commits'
+                                }
+                            },{
+                                type: "linear",
+                                display: true,
+                                position: "right",
+                                id: "y-axis-2",
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Nombre d\'ajouts'
+                                }
+                            },{
+                                type: "linear",
+                                display: true,
+                                position: "right",
+                                id: "y-axis-3",
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Nombre de suppressions'
+                                }
+                            }]
+                        }
+                    }
+                });
+            {% endfor %}
+        });
+    </script>
 {% endblock %}
 
 {% block title %}Projet {{ team.name }}{% endblock %}
@@ -51,103 +151,6 @@
                     
                     <div>
                         <canvas id="github-stats-{{ loop.index }}" width="400" height="100"></canvas>
-                        <script type="text/javascript">
-                            document.addEventListener("DOMContentLoaded", function() {
-                                var ctx = document.getElementById("github-stats-{{ loop.index }}").getContext('2d');
-                                var chart = new Chart(ctx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: [
-                                            {% for week in contributor.weeks %}
-                                                '{{ week.w|date('d/m/Y') }}',
-                                            {% endfor %}
-                                        ],
-                                        datasets: [{
-                                            label: 'Nombre de commits',
-                                            borderColor: '#157FFC',
-                                            backgroundColor: '#157FFC',
-                                            fill: false,
-                                            data: [
-                                                {% for week in contributor.weeks %}
-                                                    {{ week.c }},
-                                                {% endfor %}
-                                            ],
-                                            yAxisID: "y-axis-1"
-                                        },{
-                                            label: 'Ajouts',
-                                            borderColor: '#36D9D1',
-                                            backgroundColor: '#36D9D1',
-                                            fill: false,
-                                            data: [
-                                                {% for week in contributor.weeks %}
-                                                    {{ week.a }},
-                                                {% endfor %}
-                                            ],
-                                            yAxisID: "y-axis-2"
-                                        },{
-                                            label: 'Suppressions',
-                                            borderColor: '#F35355',
-                                            backgroundColor: '#F35355',
-                                            fill: false,
-                                            data: [
-                                                {% for week in contributor.weeks %}
-                                                    {{ week.d }},
-                                                {% endfor %}
-                                            ],
-                                            yAxisID: "y-axis-3"
-                                        }]
-                                    },
-                                    options: {
-                                        legend: {
-                                            position: 'bottom',
-                                            labels: {
-                                                boxWidth: 10,
-                                                usePointStyle: true
-                                            }
-                                        },
-                                        scales: {
-                                            yAxes: [{
-                                                type: "linear",
-                                                display: true,
-                                                position: "left",
-                                                id: "y-axis-1",
-                                                ticks: {
-                                                    beginAtZero: true
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Nombre de commits'
-                                                }
-                                            },{
-                                                type: "linear",
-                                                display: true,
-                                                position: "right",
-                                                id: "y-axis-2",
-                                                ticks: {
-                                                    beginAtZero: true
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Nombre d\'ajouts'
-                                                }
-                                            },{
-                                                type: "linear",
-                                                display: true,
-                                                position: "right",
-                                                id: "y-axis-3",
-                                                ticks: {
-                                                    beginAtZero: true
-                                                },
-                                                scaleLabel: {
-                                                    display: true,
-                                                    labelString: 'Nombre de suppressions'
-                                                }
-                                            }]
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
                     </div>
                 </li>
             {% else %}
