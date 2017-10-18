@@ -58,6 +58,7 @@ class TeamDetailController extends Controller
             'team' => $team,
             'review_form' => $user ? $reviewForm->createView() : null,
             'github_stats' => $githubService->getStats($teamId),
+            'random_commits' => $githubService->getRandomCommits($teamId),
         ]);
     }
 }

@@ -5,7 +5,6 @@
     <script type="text/javascript" src="{{ asset('bundles/student/js/Chart.min.js') }}"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            
             {% for contributor in github_stats %}
                 var ctx = document.getElementById("github-stats-{{ loop.index }}").getContext('2d');
                 var chart = new Chart(ctx, {
@@ -138,24 +137,46 @@
         
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"><i class="fa fa-github"></i> Statistiques Github</h4>
+                <h4 class="card-title"><i class="fa fa-github"></i> Commits aléatoires</h4>
             </div>
-            
             <ul class="list-group list-group-flush">
-            {% for contributor in github_stats %}
-                <li class="list-group-item">
-                    <img class="rounded-avatar" src="{{ contributor.author.avatar_url }}" />
-                    <a href="{{ contributor.author.html_url }}">
-                        <i class="fa fa-github"></i> {{ contributor.author.login }}
-                    </a> - <i class="fa fa-bar-chart"></i> {{ contributor.total }} commits
-                    
-                    <div>
-                        <canvas id="github-stats-{{ loop.index }}" width="400" height="100"></canvas>
-                    </div>
-                </li>
-            {% else %}
-                <li class="list-group-item">Statistiques github non disponibles 😭</li>
-            {% endfor %}
+                {% for commit in random_commits|slice(0, 3) %}
+                    <li class="list-group-item">
+                        <img class="rounded-avatar" src="{{ commit.author.avatar_url }}" />
+                        <a href="{{ commit.author.html_url }}">
+                            <i class="fa fa-github"></i> {{ commit.author.login }}
+                        </a> -
+                        <mark>{{ commit.commit.message }}</mark> - 
+                        <a href="{{ commit.html_url }}">
+                            <i class="fa fa-git"></i> {{ commit.sha|slice(0, 10) }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Aucune données sur les commits 😱</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><i class="fa fa-users"></i> Statistiques de contribution</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for contributor in github_stats %}
+                    <li class="list-group-item">
+                        <img class="rounded-avatar" src="{{ contributor.author.avatar_url }}" />
+                        <a href="{{ contributor.author.html_url }}">
+                            <i class="fa fa-github"></i> {{ contributor.author.login }}
+                        </a> - <i class="fa fa-bar-chart"></i> {{ contributor.total }} commits
+                        
+                        <div>
+                            <canvas id="github-stats-{{ loop.index }}" width="400" height="100"></canvas>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Aucune données sur les contributeurs 😭</li>
+                {% endfor %}
+            </ul>
         </div>
         
         <div class="card">
